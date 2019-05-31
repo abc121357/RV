@@ -3,7 +3,7 @@ package bitcamp.baby.ch7.video.vo;
 public class RentReturnVO {
 
 	private String r_Code; // 대여번호
-	private int g_Code; // 대여한 고객 번호
+	private String g_Code; // 대여한 고객 번호
 	private String v_Code; // 대여한 비디오 번호
 	private String r_RentDate; //대여일
 	private String r_PlanDate; // 반납예정일자 대여일의 +2
@@ -18,7 +18,7 @@ public class RentReturnVO {
 		
 	}
 
-	public RentReturnVO(String r_Code, int g_Code, String v_Code, String r_RentDate, String r_PlanDate,
+	public RentReturnVO(String r_Code, String g_Code, String v_Code, String r_RentDate, String r_PlanDate,
 			String r_ReturnDate, int r_TotalPay, int r_OverDueDate, String deleteYN, String createDate,
 			String updateDate) {
 		this.r_Code = r_Code;
@@ -42,11 +42,11 @@ public class RentReturnVO {
 		this.r_Code = r_Code;
 	}
 
-	public int getG_Code() {
+	public String getG_Code() {
 		return g_Code;
 	}
 
-	public void setG_Code(int g_Code) {
+	public void setG_Code(String g_Code) {
 		this.g_Code = g_Code;
 	}
 

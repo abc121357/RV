@@ -61,7 +61,7 @@ public abstract class GogakSqlMap {
 	sb.append("WHERE                               \n");
 	sb.append("				1=1                    \n");
 	sb.append("AND 			G.DELETEYN = 'Y'       \n");
-	sb.append("AND 			SUBSTR(G.G_CODE,10)=?             \n");
+	sb.append("AND 			SUBSTR(G.G_CODE,10)=? 	\n");
 
 	
 	return sb.toString();

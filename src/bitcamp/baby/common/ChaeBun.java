@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 
 import bitcamp.baby.sql.GogakSqlMap;
+import bitcamp.baby.sql.RentReturnSqlMap;
 import bitcamp.baby.sql.VideoSqlMap;
 
 public abstract class ChaeBun {
@@ -163,4 +164,75 @@ public abstract class ChaeBun {
 			
 		return g_Code;	
 		}
+	
+	
+	// RentReturn 채번
+		public static String commR(){
+			String r_Code= "";	
+			int commYear_= 0;
+			int commMonth_= 0;
+			int commDay_= 0;
+			String commYear=null;
+			String commMonth=null;
+			String commDay=null;
+			Connection c=null;
+			PreparedStatement ps=null;
+			ResultSet rs=null;
+			
+			c=ConnPropertyOraUser.getConnection();
+			try{
+				
+			ps=c.prepareStatement(RentReturnSqlMap.COMMON_USE_QUERY[RentReturnSqlMap.QUERY_R_INDEX_0]);
+			rs=ps.executeQuery();
+			if(rs!=null){
+				rs.next();
+				r_Code=String.valueOf(rs.getString("commNo"));
+			}
+			//캘린더 클래스객체를 만들어서 변수안에 집어넣는다.
+			Calendar cal=Calendar.getInstance();
+			//그 객체로 날짜를 반환한다.
+			commYear_=cal.get(cal.YEAR);
+			commMonth_=cal.get(cal.MONTH)+1;
+			commDay_=cal.get(cal.DAY_OF_MONTH);
+			
+			commYear=String.valueOf(commYear_);
+			commMonth=String.valueOf(commMonth_);
+			commDay=String.valueOf(commDay_);
+			
+			if(commMonth_ < 10 )
+			{
+				commMonth="0"+String.valueOf(commMonth_);
+			}
+			//갯수의 자릿수가 1이면 0을 3개
+			if(r_Code.length()==1){
+				r_Code="000"+r_Code;
+			}
+			
+			if(r_Code.length()==2){
+				r_Code="00"+r_Code;
+			}
+						
+			r_Code=RENTRETURN_CHAR_R
+					+commYear
+					+commMonth
+					+commDay
+					+r_Code;
+			if(c!=null){
+			ConnPropertyOraUser.conClose(c, ps, rs);
+			}
+			
+			}catch(SQLException e){
+				System.out.println("채번 에러 문제 이유 : "+e);
+			}finally{
+				try{
+				ConnPropertyOraUser.conClose(c, ps, rs);
+				}catch(Exception e){
+				e.printStackTrace();
+				}
+			}
+			
+				
+				
+			return r_Code;	
+			}
 }
